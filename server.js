@@ -27,7 +27,8 @@ app.post('/check', async (req, res) => {
     if (checkCommonPasswordsRes[0] === false) {
         await force(userPassword, checkCommonPasswordsRes[1]);
     } else {
-        crackedPassword = checkCommonPasswordsRes;
+        crackedPassword = checkCommonPasswordsRes[0];
+        counter = checkCommonPasswordsRes[1];
     }
 
     let ending = performance.now();
