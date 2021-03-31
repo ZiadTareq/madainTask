@@ -10,3 +10,9 @@
     padding: 5px;
     margin: 5px
 }
+
+.container {
+    margin: auto;
+    padding: 2rem;
+    text-align: center;
+}

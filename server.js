@@ -19,16 +19,21 @@ app.get('/', (req, res) => {
 })
 
 app.post('/check', async (req, res) => {
-    userPassword = req.body.password
-    let starting = performance.now()
-    let checkCommonPasswordsRes = await checkCommon(userPassword)
+    userPassword = req.body.password;
+
+    let starting = performance.now();
+    let checkCommonPasswordsRes = await checkCommon(userPassword);
+
     if (checkCommonPasswordsRes[0] === false) {
         await force(userPassword, checkCommonPasswordsRes[1]);
     } else {
         crackedPassword = checkCommonPasswordsRes;
     }
-    let ending = performance.now()
+
+    let ending = performance.now();
+
     const timeOfEx = (ending - starting) / 1000 + " seconds.";
+
     res.render('result', {
         timeOfEx,
         tries: counter,
@@ -38,7 +43,6 @@ app.post('/check', async (req, res) => {
 
 app.listen(process.env.PORT || 3000, () => {
     console.log('listening on port 3000');
-
 });
 
 async function checkCommon(userPassword) {
@@ -52,7 +56,7 @@ async function checkCommon(userPassword) {
                 }
                 counter++;
             });
-            resolve([false, counter])
+            resolve([false, counter]);
 
         } catch (e) {
             reject(e);
@@ -62,8 +66,6 @@ async function checkCommon(userPassword) {
 }
 
 async function force(password) {
-
-
     let promise = new Promise((resolve, reject) => {
         try {
             let AllChars = [];
@@ -76,7 +78,7 @@ async function force(password) {
                 step: checkPassword
             });
 
-            resolve(crackedPassword)
+            resolve(crackedPassword);
         } catch (e) {
             reject(e);
         }
@@ -90,8 +92,8 @@ async function readFile() {
 
 function checkPassword(guess) {
     if (guess === userPassword) {
-        crackedPassword = guess
+        crackedPassword = guess;
     } else {
-        counter++
+        counter++;
     }
 }
